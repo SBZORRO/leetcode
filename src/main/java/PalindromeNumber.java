@@ -1,7 +1,4 @@
-
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 class PalindromeNumber {
 //  Given a 32-bit signed integer, reverse digits of an integer.
@@ -30,16 +27,47 @@ class PalindromeNumber {
 
   public static void main(String[] args) {
     PalindromeNumber test = new PalindromeNumber();
-    System.out.println(test.reverse(-123));
+    System.out.println(test.isPalindrome(100));
   }
 
-  public int reverse(int x) {
-    int result = 0;
-    int last = 0;
-    for (; x != 0; x = x / 10) {
-      last = result;
-      result = result * 10 + (x % 10);
+  public boolean isPalindrome1(int x) {
+    if (x < 0) {
+      return false;
     }
-    return result / 10 == last ? result : 0;
+
+    ArrayList<Integer> list = new ArrayList<>();
+    while (x > 0) {
+      int div = x / 10;
+      int rem = x % 10;
+      list.add(rem);
+      x = div;
+    }
+
+    for (int i = 0; i < list.size() / 2; i++) {
+      if (list.get(i) != list.get(list.size() - i - 1)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean isPalindrome(int x) {
+    if (x < 10 && x >= 0) {
+      return true;
+    }
+    if (x < 0 || x % 10 == 0) {
+      return false;
+    }
+    int newNum = 0;
+    int div = 0;
+    int rem = 0;
+    while (newNum < x) {
+      div = x / 10;
+      rem = x % 10;
+      newNum = newNum * 10 + rem;
+      x = div;
+    }
+
+    return newNum == x ? true : newNum / 10 == x;
   }
 }
