@@ -32,6 +32,9 @@ public class No4_MedianOfTwoSortedArrays {
 //    System.out.println(test.findMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3, 4 }));
 //    System.out.println(
 //        test.findMedianSortedArrays(new int[] { 6, 8, 9, 11, 23 }, new int[] { 4, 5, 10, 15 }));
+//    System.out.println(test.findMedianSortedArrays(new int[] { 0, 0 }, new int[] { 0, 0 }));
+//    System.out.println(test.findMedianSortedArrays(new int[] {}, new int[] { 2, 3 }));
+//    System.out.println(test.findMedianSortedArrays(new int[] { 1 }, new int[] { 1 }));
 
   }
 
@@ -55,6 +58,22 @@ public class No4_MedianOfTwoSortedArrays {
   TreeNode           next   = null;
 
   public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    if (nums1 == null || nums1.length == 0) {
+      if (nums2.length % 2 == 0) {
+        return (double) (nums2[nums2.length / 2] + nums2[nums2.length / 2 - 1]) / 2;
+      } else {
+        return nums2[nums2.length / 2];
+      }
+    }
+
+    if (nums2 == null || nums2.length == 0) {
+      if (nums1.length % 2 == 0) {
+        return (double) (nums1[nums1.length / 2] + nums1[nums1.length / 2 - 1]) / 2;
+      } else {
+        return nums1[nums1.length / 2];
+      }
+    }
+
     for (int i : nums1) {
       add(new TreeNode(i));
     }
@@ -66,7 +85,7 @@ public class No4_MedianOfTwoSortedArrays {
       return head.val;
     }
 
-    len = len - 1;
+    len = len / 2;
     if (l > r) {
       findLeft(cur.left);
     } else if (r > l) {
@@ -74,7 +93,12 @@ public class No4_MedianOfTwoSortedArrays {
     }
 
     if ((nums1.length + nums2.length) % 2 == 0) {
-
+      if (next == null) {
+        next = head;
+      }
+      if (target == null) {
+        target = head;
+      }
       return (double) (next.val + target.val) / 2;
     } else {
       return target.val;
@@ -89,13 +113,13 @@ public class No4_MedianOfTwoSortedArrays {
     }
 
     findRight(tree.left);
-    len = len - 1;
     if (len == 1) {
       target = tree;
     }
     if (len == 0) {
       next = tree;
     }
+    len = len - 1;
     findRight(tree.right);
 
     return null;
@@ -109,13 +133,13 @@ public class No4_MedianOfTwoSortedArrays {
     }
 
     findLeft(tree.right);
-    len = len - 1;
     if (len == 1) {
       target = tree;
     }
     if (len == 0) {
       next = tree;
     }
+    len = len - 1;
     findLeft(tree.left);
 
     return null;
@@ -126,10 +150,10 @@ public class No4_MedianOfTwoSortedArrays {
       head = tree;
       cur = head;
       return;
-    } else if (head != null && head.val <= tree.val) {
-      r++;
-    } else if (head != null && head.val > tree.val) {
+    } else if (head != null && tree.val <= head.val) {
       l++;
+    } else if (head != null && tree.val > head.val) {
+      r++;
     }
     while (true) {
       if (tree.val <= cur.val) {
