@@ -53,5 +53,4 @@ public class Interview_JosephusProblem {
 
     return (m * rem + 1);
   }
-
 }
