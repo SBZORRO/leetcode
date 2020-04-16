@@ -1,4 +1,4 @@
-class LongestCommonPrefix {
+class No3_LongestCommonPrefix {
 //  Write a function to find the longest common prefix string amongst an array of strings.
 //
 //  If there is no common prefix, return an empty string "".
@@ -23,7 +23,7 @@ class LongestCommonPrefix {
 //  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
   public static void main(String[] args) {
-    LongestCommonPrefix test = new LongestCommonPrefix();
+    No3_LongestCommonPrefix test = new No3_LongestCommonPrefix();
     System.out.println(test.longestCommonPrefix(new String[] { "lkj", "lkjf", "lkff" }));
     System.out.println(test.longestCommonPrefix(new String[] { "abca", "abca", "abca" }));
   }

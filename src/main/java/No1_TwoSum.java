@@ -2,7 +2,7 @@
 
 import java.util.HashMap;
 
-class TwoSum {
+class No1_TwoSum {
 //  Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 //
 //      You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -19,7 +19,7 @@ class TwoSum {
 //      著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
   public static void main(String[] args) {
-    TwoSum ts = new TwoSum();
+    No1_TwoSum ts = new No1_TwoSum();
     int[] arr = ts.twoSum(new int[] { 2, 7, 11, 15 }, 9);
 
     for (int i = 0; i < arr.length; i++) {

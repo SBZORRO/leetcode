@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class PalindromeNumber {
+class No9_PalindromeNumber {
 //  Given a 32-bit signed integer, reverse digits of an integer.
 //
 //  Example 1:
@@ -26,7 +26,7 @@ class PalindromeNumber {
 //  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
   public static void main(String[] args) {
-    PalindromeNumber test = new PalindromeNumber();
+    No9_PalindromeNumber test = new No9_PalindromeNumber();
     System.out.println(test.isPalindrome(100));
   }
 

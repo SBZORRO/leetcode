@@ -1,4 +1,4 @@
-public class AddTwoNumbers {
+public class No2_AddTwoNumbers {
 //  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
 //
 //      You may assume the two numbers do not contain any leading zero, except the number 0 itself.
@@ -14,7 +14,7 @@ public class AddTwoNumbers {
 //      著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
   public static void main(String[] args) {
-    AddTwoNumbers test = new AddTwoNumbers();
+    No2_AddTwoNumbers test = new No2_AddTwoNumbers();
     System.out.println(test.addTwoNumbers(new ListNode(8), new ListNode(9)).val);
 //    System.out.println(test.isValid("()[]{}"));
 //    System.out.println(test.isValid("([)]"));

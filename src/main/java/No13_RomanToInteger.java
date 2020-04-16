@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-class RomanToInteger {
+class No13_RomanToInteger {
 //  Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 //
 //  Symbol       Value
@@ -54,7 +54,7 @@ class RomanToInteger {
 //  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
   public static void main(String[] args) {
-    RomanToInteger test = new RomanToInteger();
+    No13_RomanToInteger test = new No13_RomanToInteger();
     System.out.println(test.RomanToInt("III"));
     System.out.println(test.RomanToInt("IV"));
     System.out.println(test.RomanToInt("IX"));
