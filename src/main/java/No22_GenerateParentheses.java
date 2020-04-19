@@ -27,6 +27,26 @@ public class No22_GenerateParentheses {
   }
 
   public List<String> generateParenthesis(int n) {
+    String item = "()";
+    LinkedList<String> list = new LinkedList<String>();
+    list.addLast("()");
+    while (true) {
+      String target = list.pop();
+      if (target.length() == 2 * n) {
+        list.push(target);
+        break;
+      }
+      for (int i = 0; i < target.length(); i++) {
+        String temp = target.substring(0, i + 1) + item + target.substring(i + 1);
+        if (list.contains(temp) == false) {
+          list.addLast(temp);
+        }
+      }
+    }
+    return list;
+  }
+
+  public List<String> generateParenthesis1(int n) {
     String s = "";
     LinkedList<String> list = new LinkedList<String>();
     list.addLast(s);
@@ -36,7 +56,7 @@ public class No22_GenerateParentheses {
         list.push(s);
         break;
       }
-      String in = in(s);
+      String in = outter(s);
       String pre = pre(s);
       String post = post(s);
 
@@ -53,8 +73,14 @@ public class No22_GenerateParentheses {
     return list;
   }
 
-  public String in(String s) {
+  public String outter(String s) {
     return "(" + s + ")";
+  }
+
+  public String inner(String s) {
+    while (true) {
+      s.indexOf("()");
+    }
   }
 
   public String pre(String s) {
