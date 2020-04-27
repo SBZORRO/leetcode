@@ -27,15 +27,6 @@ public class Interview_SmallestKNums {
   }
 
   public int[] getLeastNumbers(int[] arr, int k) {
-    int pos = k;
-    int val = arr[k];
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i])
-    }
-    return 0;
-  }
-
-  public int[] getLeastNumbers1(int[] arr, int k) {
     Arrays.sort(arr);
     return Arrays.copyOfRange(arr, 0, k);
   }

@@ -36,11 +36,21 @@ public class Inteerview0811_CoinLCCI {
   }
 
   public int waysToChange(int n) {
-    int base = 4;
-    int ans = 4;
-    for (int i = 0; i < n; i++) {
-      ans = ans + 2 + i;
+    int[] c = new int[] { 1, 5, 10, 25 };
+    int[][] res = new int[4][n / 5];
+
+    for (int i = 0; i < res[0].length; i++) {
+      res[0][i] = 1;
     }
+    for (int i = 0; i < 4; i++) {
+      res[i][0] = 1;
+    }
+    for (int i = 1; i < c.length; i++) {
+      for (int j = 0; j < res[0].length; j++) {
+
+      }
+    }
+    return res[3][n / 5 - 1];
   }
 
   public int waysToChange1(int n) {
