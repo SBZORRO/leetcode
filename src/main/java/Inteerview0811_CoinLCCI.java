@@ -31,11 +31,35 @@ public class Inteerview0811_CoinLCCI {
 
   public static void main(String[] args) {
     Inteerview0811_CoinLCCI test = new Inteerview0811_CoinLCCI();
-    System.out.println(test.waysToChange(5));
+    System.out.println(test.waysToChange(900750));
 
   }
 
   public int waysToChange(int n) {
+    int[] c = new int[] { 1, 5, 10, 25 };
+    int[][] res = new int[4][n / 5 + 1];
+
+    for (int i = 0; i < res[0].length; i++) {
+      res[0][i] = 1;
+    }
+    for (int i = 0; i < 4; i++) {
+      res[i][0] = 1;
+    }
+    int k = 0;
+    for (int i = 1; i < c.length; i++) {
+      for (int j = 1; j < res[0].length; j++) {
+        k = j * 5;
+        if (k < c[i]) {
+          res[i][j] = res[i - 1][j];
+        } else {
+          res[i][j] = (res[i - 1][j] + res[i][(k - c[i]) / 5]) % 1000000007;
+        }
+      }
+    }
+    return res[3][n / 5];
+  }
+
+  public int waysToChange2(int n) {
     if (n < 5)
       return 1;
     int[][] dp = new int[4][n + 1];
