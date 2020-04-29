@@ -35,13 +35,53 @@ public class No38_CountAndSay {
 
   public static void main(String[] args) {
     No38_CountAndSay test = new No38_CountAndSay();
-    System.out.println(test.searchInsert(new int[] { 1, 3, 5, 6 }, 5));
-    System.out.println(test.searchInsert(new int[] { 1, 3, 5, 6 }, 2));
-    System.out.println(test.searchInsert(new int[] { 1, 3, 5, 6 }, 7));
-    System.out.println(test.searchInsert(new int[] { 1, 3, 5, 6 }, 0));
+    char c = 1;
+    System.out.println(test.lastSameSeq("1211"));
+    System.out.println(test.lastSameSeq("111221"));
+    System.out.println(test.countAndSay(10));
   }
 
   public String countAndSay(int n) {
+    String s = "1";
+    for (int i = 1; i < n; i++) {
+      s = lastSameSeq(s);
+    }
+    return s;
+  }
 
+  public String lastSameSeq(String s) {
+    StringBuilder sb = new StringBuilder();
+    int i = 0;
+    int j = 0;
+
+    while (j < s.length()) {
+      char c = s.charAt(j);
+      char cc = c;
+      i = 0;
+      while (cc == c) {
+        i++;
+        j++;
+        if (j >= s.length()) {
+          break;
+        }
+        cc = s.charAt(j);
+      }
+      sb.append(i + "" + c);
+      if (j >= s.length()) {
+        break;
+      }
+    }
+    return sb.toString();
+  }
+
+  public String lastSameSeq1(String s, int beg) {
+    char c = s.charAt(0);
+    char cc = c;
+    int i = 0;
+    for (i = 1; cc == c; i++) {
+      cc = s.charAt(i);
+    }
+
+    return i - 1 + "" + c;
   }
 }
