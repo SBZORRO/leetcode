@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 class No1049_LastStoneWeight2 {
 //  We have a collection of rocks, each rock has a positive integer weight.
 //
@@ -36,6 +40,35 @@ class No1049_LastStoneWeight2 {
   }
 
   public int lastStoneWeightII(int[] stones) {
+    List<Integer> li = new LinkedList<>();
+    for (int i = 0; i < stones.length; i++) {
 
+    }
+  }
+
+  public int lastStoneWeightII1(int[] stones) {
+    re(stones, 0, 0);
+    return min;
+  }
+
+  int                   min = Integer.MAX_VALUE;
+  Map<Integer, Integer> map = new HashMap<>();
+
+  public void re(int[] a, int i, int sum) {
+    if (map.containsKey(sum)) {
+      if (map.get(sum) == i) {
+        return;
+      }
+    }
+    if (i == a.length) {
+      if (sum >= 0) {
+        min = Math.min(min, sum);
+      }
+      return;
+    }
+    map.put(sum, i);
+    i++;
+    re(a, i, sum + a[i - 1]);
+    re(a, i, sum - a[i - 1]);
   }
 }
