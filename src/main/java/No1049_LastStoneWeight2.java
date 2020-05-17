@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 class No1049_LastStoneWeight2 {
@@ -37,13 +36,9 @@ class No1049_LastStoneWeight2 {
 
   public static void main(String[] args) {
     No1049_LastStoneWeight2 test = new No1049_LastStoneWeight2();
-  }
-
-  public int lastStoneWeightII(int[] stones) {
-    List<Integer> li = new LinkedList<>();
-    for (int i = 0; i < stones.length; i++) {
-
-    }
+    System.out.println(test.lastStoneWeightII(new int[] { 2, 7, 4, 1, 8 }));
+    System.out.println(test.lastStoneWeightII(new int[] { 28, 7, 51, 47, 28, 54 }));
+    System.out.println(test.lastStoneWeightII(new int[] { 36, 86, 8, 7 }));
   }
 
   public int lastStoneWeightII1(int[] stones) {
@@ -70,5 +65,31 @@ class No1049_LastStoneWeight2 {
     i++;
     re(a, i, sum + a[i - 1]);
     re(a, i, sum - a[i - 1]);
+
   }
+
+  public int lastStoneWeightII(int[] stones) {
+
+    int len = stones.length;
+    int sum = 0;
+    for (int i = 0; i < len; i++) {
+      sum += stones[i];
+    }
+    int half = sum / 2;
+    int[][] p = new int[stones.length][half + 1];
+
+    for (int i = 0; i < len; i++) {
+      for (int j = 0; j < half + 1; j++) {
+        int cur = j >= stones[i] ? stones[i] : 0;
+
+        int top = i - 1 >= 0 ? p[i - 1][j] : 0;
+        int pre = j - cur >= 0 && i - 1 >= 0 ? p[i - 1][j - cur] : 0;
+
+        p[i][j] = Math.max(top, pre + cur);
+//      p[i][j] = closest(j, top, pre, cur + top);
+      }
+    }
+    return sum - 2 * p[len - 1][half];
+  }
+
 }
