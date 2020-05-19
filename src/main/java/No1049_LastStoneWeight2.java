@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class No1049_LastStoneWeight2 {
 //  We have a collection of rocks, each rock has a positive integer weight.
 //
@@ -38,7 +41,35 @@ class No1049_LastStoneWeight2 {
     System.out.println(test.lastStoneWeightII(new int[] { 36, 86, 8, 7 }));
   }
 
+  public int lastStoneWeightII1(int[] stones) {
+    re(stones, 0, 0);
+    return min;
+  }
+
+  int                   min = Integer.MAX_VALUE;
+  Map<Integer, Integer> map = new HashMap<>();
+
+  public void re(int[] a, int i, int sum) {
+    if (map.containsKey(sum)) {
+      if (map.get(sum) == i) {
+        return;
+      }
+    }
+    if (i == a.length) {
+      if (sum >= 0) {
+        min = Math.min(min, sum);
+      }
+      return;
+    }
+    map.put(sum, i);
+    i++;
+    re(a, i, sum + a[i - 1]);
+    re(a, i, sum - a[i - 1]);
+
+  }
+
   public int lastStoneWeightII(int[] stones) {
+
     int len = stones.length;
     int sum = 0;
     for (int i = 0; i < len; i++) {
@@ -55,9 +86,10 @@ class No1049_LastStoneWeight2 {
         int pre = j - cur >= 0 && i - 1 >= 0 ? p[i - 1][j - cur] : 0;
 
         p[i][j] = Math.max(top, pre + cur);
-//        p[i][j] = closest(j, top, pre, cur + top);
+//      p[i][j] = closest(j, top, pre, cur + top);
       }
     }
     return sum - 2 * p[len - 1][half];
   }
+
 }
