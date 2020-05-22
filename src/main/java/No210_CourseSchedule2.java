@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class No210_CourseSchedule2 {
@@ -38,7 +39,9 @@ public class No210_CourseSchedule2 {
 //    test.findOrder(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 } });
 //    test.findOrder(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } });
 //    test.findOrder(2, new int[][] { { 1, 0 } });
-    test.findOrder(2, new int[][] { { 1, 0 }, { 0, 1 } });
+//    test.findOrder(2, new int[][] { { 1, 0 }, { 0, 1 } });
+//    test.findOrder(3, new int[][] { { 2, 1 }, { 1, 0 } });
+    test.findOrder(3, new int[][] { { 0, 2 }, { 1, 2 }, { 2, 0 } });
   }
 
   public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -59,17 +62,18 @@ public class No210_CourseSchedule2 {
     LinkedList<Integer> li = null;
     int course = -1;
     int pre = -1;
+    Arrays.fill(res, 0);
     for (int i = 0; i < prerequisites.length; i++) {
       course = prerequisites[i][0];
       pre = prerequisites[i][1];
       if (lis.get(course) != null) {
         lis.get(course).add(pre);
-        res[course]++;
+        res[pre]++;
       } else {
         li = new LinkedList<>();
         li.add(pre);
-        lis.add(course, li);
-        res[course] = 1;
+        lis.set(course, li);
+        res[pre]++;
       }
     }
 
@@ -88,14 +92,23 @@ public class No210_CourseSchedule2 {
       int i = dq.pop();
       ans.addLast(i);
       li = lis.get(i);
-      for (int j : li) {
-        res[j]--;
-        if (res[j] == 0) {
-          dq.addLast(j);
+      if (li != null) {
+        for (int j : li) {
+          res[j]--;
+          if (res[j] == 0) {
+            dq.addLast(j);
+          }
         }
       }
     }
 
-    return;
+    if (ans.size() != numCourses) {
+      return new int[0];
+    }
+
+    for (int i = numCourses - 1; i >= 0; i--) {
+      res[i] = ans.pop();
+    }
+    return res;
   }
 }
