@@ -27,6 +27,7 @@ class No105_ConstructBinaryTreeFromPreorderAndInorderTraversal {
 
   public static void main(String[] args) {
     No105_ConstructBinaryTreeFromPreorderAndInorderTraversal test = new No105_ConstructBinaryTreeFromPreorderAndInorderTraversal();
+    test.buildTree(new int[] { 1, 2 }, new int[] { 2, 1 });
   }
 
   static class TreeNode {
@@ -40,37 +41,41 @@ class No105_ConstructBinaryTreeFromPreorderAndInorderTraversal {
   }
 
   public TreeNode buildTree(int[] preorder, int[] inorder) {
+    if (preorder == null || inorder == null || preorder.length == 0 || preorder.length == 0) {
+      return null;
+    }
+    TreeNode root = new TreeNode(preorder[0]);
+    if (preorder.length == 1 || inorder.length == 1) {
+      return root;
+    }
     Map<Integer, Integer> prem = new HashMap<>();
     Map<Integer, Integer> inm = new HashMap<>();
-    TreeNode root = new TreeNode(preorder[0]);
-    TreeNode h = root;
 
     for (int i = 0; i < preorder.length; i++) {
       prem.put(preorder[i], i);
       inm.put(inorder[i], i);
     }
-    int i = 0;
-    int j = 0;
 
-    TreeNode subroot = new TreeNode(preorder[i]);
-    prem.get(inorder[j]);
-
-//    int leftestIndi = prem.get(inorder[0]);
-//    int secondLeftestIndi = leftestIndi - 1;
-//    int[] rightSubOfLeftestIn = Arrays
-//        .copyOfRange(inorder, 1, inm.get(preorder[secondLeftestIndi]));
-//    int[] rightSubOfLeftestPre = Arrays
-//        .copyOfRange(preorder, leftestIndi + 1, leftestIndi + 1 + rightSubOfLeftestIn.length);
     int[] inorderLeftSubtree = Arrays.copyOfRange(inorder, 0, inm.get(preorder[0]));
     int[] inorderRightSubtree = Arrays
         .copyOfRange(inorder, inm.get(preorder[0]) + 1, inorder.length);
     int[] preorderLeftSubtree = Arrays.copyOfRange(preorder, 1, 1 + inorderLeftSubtree.length);
     int[] preorderRightSubtree = Arrays
         .copyOfRange(preorder, 1 + inorderLeftSubtree.length, preorder.length);
-    subroot.left = buildTree(preorderLeftSubtree, inorderLeftSubtree);
-    subroot.right = buildTree(preorderRightSubtree, inorderRightSubtree);
-//    subroot.right = buildTree(rightSubOfLeftestPre, rightSubOfLeftestIn);
-
+    if (inorderLeftSubtree.length == 1) {
+      root.left = new TreeNode(inorderLeftSubtree[0]);
+    } else if (inorderLeftSubtree.length == 0) {
+      root.left = null;
+    } else {
+      root.left = buildTree(preorderLeftSubtree, inorderLeftSubtree);
+    }
+    if (inorderRightSubtree.length == 1) {
+      root.right = new TreeNode(inorderRightSubtree[0]);
+    } else if (inorderRightSubtree.length == 0) {
+      root.right = null;
+    } else {
+      root.right = buildTree(preorderRightSubtree, inorderRightSubtree);
+    }
     return root;
   }
 }
