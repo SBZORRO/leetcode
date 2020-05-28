@@ -189,8 +189,13 @@ class LFUCache {
       if (cur == null) {
         ht.put(target.lfu(), new Node[] { target, target });
         if (catchUp != null) {
+          Node tmp = catchUp.next;
           catchUp.next = target;
           target.prev = catchUp;
+          if (tmp != null) {
+            tmp.prev = target;
+            target.next = tmp;
+          }
         }
       } else if (cur != null) {
         addToTail(target.lfu(), target);
