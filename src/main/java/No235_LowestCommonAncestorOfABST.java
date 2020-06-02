@@ -46,7 +46,21 @@ public class No235_LowestCommonAncestorOfABST {
   }
 
   public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-
+    if (p.val == q.val) {
+      return q;
+    }
+    TreeNode small = p.val > q.val ? q : p;
+    TreeNode big = p.val > q.val ? p : q;
+    if (small.val <= root.val && big.val >= root.val) {
+      return root;
+    }
+    if (small.val <= root.val && big.val <= root.val) {
+      return lowestCommonAncestor(root.left, small, big);
+    }
+    if (small.val >= root.val && big.val >= root.val) {
+      return lowestCommonAncestor(root.right, small, big);
+    }
+    return null;
   }
 
 }
