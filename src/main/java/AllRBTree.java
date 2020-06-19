@@ -51,6 +51,62 @@ public class AllRBTree {
     handleReorient(add, v);
   }
 
+  public void delete(TreeNode node, int v) {
+    if (node == null || node.val == v) {
+      return;
+    }
+    TreeNode f = null;
+    TreeNode p = node;
+    TreeNode s = node;
+    TreeNode gp = node;
+    while (node != NULL) {
+      if (node.val > v) {
+        node = node.left;
+        s = node.right;
+      } else {
+        node = node.right;
+        s = node.left;
+        if (p.val == v) {
+          f = p;
+        }
+      }
+      if (p.color == COLOR.Black && node.color == COLOR.Red) {
+        continue;
+      } else if (p.color == COLOR.Black && node.color == COLOR.Black) {
+        if (node == p.left) {
+          singleRotateWithLeft(p);
+        } else {
+          singleRotateWithRight(p);
+        }
+      } else if (p.color == COLOR.Red) {
+        if (node.right.color == COLOR.Black && node.left.color == COLOR.Black) {
+          if (s.right.color == COLOR.Black && s.left.color == COLOR.Black) {
+            p.color = COLOR.Black;
+            node.color = COLOR.Red;
+            s.color = COLOR.Red;
+          } else {
+            if (node == p.left && s.left.color == COLOR.Red) {
+              gp = doubleRotateWithRight(p);
+            } else if (node == p.right && s.right.color == COLOR.Red) {
+              gp = doubleRotateWithLeft(p);
+            } else if (node == p.left && s.right.color == COLOR.Red) {
+              p = singleRotateWithRight(p);
+            } else if (node == p.right && s.left.color == COLOR.Red) {
+              p = singleRotateWithLeft(p);
+            }
+            node.color = COLOR.Red;
+            gp.color = COLOR.Red;
+            gp.left.color = COLOR.Black;
+            gp.right.color = COLOR.Black;
+          }
+        }
+      }
+    }
+    f.val = p.val;
+    gp.left = p.right;
+    gp.left.par = gp;
+  }
+
   public void handleReorient(TreeNode node, int v) {
     node.color = COLOR.Red;
     node.left.color = COLOR.Black;
@@ -76,10 +132,6 @@ public class AllRBTree {
       }
     }
     ROOT.color = COLOR.Black;
-  }
-
-  public void delete(TreeNode node, v) {
-    
   }
 
   public void rotate(TreeNode p, int v) {
